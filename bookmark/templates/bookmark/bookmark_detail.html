@@ -1,0 +1,12 @@
+{% extends "base.html" %}  <!--상속. 반드시 첫 줄에 있어야 함-->
+{% block title %}IKEA{% endblock %}
+{% block content %}
+    <div id="content"> <!--base.css 내부의 div#contents 스타일 적용-->
+        <h1>{{ object.title }}</h1>
+        <ul>
+            <li>
+                URL: <a href="{{ object.url }}">{{ object.url }}</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

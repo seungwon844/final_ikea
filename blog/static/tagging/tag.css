@@ -1,0 +1,16 @@
+
+.tag-cloud {
+    width: 100%;
+    text-align: justify;
+}
+/*태그 개수에 따라 폰트 크기가 달라짐 - 크기 통일*/
+.tag-1 {font-size: 12px;}
+.tag-2 {font-size: 12px;}
+.tag-3 {font-size: 12px;}
+.tag-4 {font-size: 12px;}
+.tag-5 {font-size: 12px;}
+.tag-6 {font-size: 12px;}
+
+a:-webkit-any-link {color: #3f6abf;}
+a:-webkit-any-link:visited, a:-webkit-any-link:link {color: #3f6abf;}
+a:-webkit-any-link:hover {color: #fbce10;}

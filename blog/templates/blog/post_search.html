@@ -1,0 +1,170 @@
+<!--ch09 작성 시작-->
+{% extends "base.html" %}
+{% block title %}IKEA{% endblock %}
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/tabular.css" %}{% endblock %}
+{% block content %}
+<div id="content">
+    <!--blog.views.SearchFormView.form_valid() 함수와 함께 보면서 작업하라-->
+    <h2 class="centered">상품 후기 검색</h2> <br/>
+    <!--form 태그로 폼을 출력, 확인 누르면 POST 방식으로 요청을 동일한 URL로 전송-->
+    <!--CSRF 공격(Cross Site Request Forgery) 출처: http://itstory.tk/entry/CSRF-공격이란-그리고-CSRF-방어-방법 [덕's IT Story]-->
+    <!--csrf-token 태그를 써서 CSRF 공격을 방지-->
+    <form action="." method="post" class="centered"> {% csrf_token %}  <!--해킹을 방지!-->
+        <!--form은 뷰가 넘겨준 PostSearchForm을 의미함-->
+        <div class="centered">
+            <table class="form_table">
+                {{ form.as_table }}
+            </table>
+        </div> <br/>
+
+        <input id="submit_btn" type="submit" value="검색하기" />  <!--버튼에 나타날 레이블-->
+    </form>
+    <br/><br/>
+{##}
+
+
+
+{#통합검색#}
+    {% if object_list and search_term %}
+        <h4 class="centered">({{ search_term }})에 대한 <i>통합</i> 검색 결과</h4>
+        <table id="tbl">
+            <tr>
+                <th>번호</th>
+                <th>최종 수정일</th>
+                <th>제목</th>
+                <th>유저명</th>
+                <th>태그</th>
+            </tr>
+            {% for post in object_list %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.modify_date|date:"Y년 m월 d일" }}</td>
+                <td>
+                    <a href='{{ post.get_absolute_url }}'>
+                        <strong>{{ post.title }}</strong>
+                    </a>
+                </td>
+                <td>{{ post.slug }}</td>
+                <td>{{ post.tag }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% elif search_term %}
+        <p class="centered">
+            <strong><i>
+                ({{ search_term }})에 대한 통합 검색 결과가 없습니다!
+            </i></strong>
+        </p>
+    {% elif search_term|default:"nothing" %}
+        <div class="centered">
+            <h3>상품명이나 후기 내용을 검색해주세요</h3>
+        </div>
+    {% endif %}
+
+
+{#제목검색#}
+    {% if object_list and search_term_title%}
+        <h4 class="centered">({{ search_term_title }})에 대한 <i>제목</i> 검색 결과</h4>
+        <table id="tbl">
+            <tr>
+                <th>번호</th>
+                <th>최종 수정일</th>
+                <th>제목</th>
+                <th>유저명</th>
+                <th>태그</th>
+            </tr>
+            {% for post in object_list_title %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.modify_date|date:"Y년 m월 d일" }}</td>
+                <td>
+                    <a href='{{ post.get_absolute_url }}'>
+                        <strong>{{ post.title }}</strong>
+                    </a>
+                </td>
+                <td>{{ post.slug }}</td>
+                <td>{{ post.tag }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    {% elif search_term_title %}
+        <p class="centered">
+            <strong><i>
+                ({{ search_term_title }})에 대한 제목 검색 결과가 없습니다!
+            </i></strong>
+        </p>
+    {% endif %}
+
+{#내용검색#}
+    {% if object_list and search_term_content %}
+        <h4 class="centered">({{ search_term_content }})에 대한 <i>내용</i> 검색 결과</h4>
+        <table id="tbl">
+            <tr>
+                <th>번호</th>
+                <th>최종 수정일</th>
+                <th>제목</th>
+                <th>유저명</th>
+                <th>태그</th>
+            </tr>
+            {% for post in object_list_content %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.modify_date|date:"Y년 m월 d일" }}</td>
+                <td>
+                    <a href='{{ post.get_absolute_url }}'>
+                        <strong>{{ post.title }}</strong>
+                    </a>
+                </td>
+                <td>{{ post.slug }}</td>
+                <td>{{ post.tag }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    {% elif search_term_content %}
+        <p class="centered">
+            <strong><i>
+                ({{ search_term_content }})에 대한 내용 검색 결과가 없습니다!
+            </i></strong>
+        </p>
+    {% endif %}
+{#태그검색#}
+    {% if object_list and search_term_tag %}
+        <h4 class="centered">({{ search_term_tag }})에 대한 <i>태그</i> 검색 결과</h4>
+        <table id="tbl">
+            <tr>
+                <th>번호</th>
+                <th>최종 수정일</th>
+                <th>제목</th>
+                <th>유저명</th>
+                <th>태그</th>
+            </tr>
+            {% for post in object_list_tag %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.modify_date|date:"Y년 m월 d일" }}</td>
+                <td>
+                    <a href='{{ post.get_absolute_url }}'>
+                        <strong>{{ post.title }}</strong>
+                    </a>
+                </td>
+                <td>{{ post.slug }}</td>
+                <td>{{ post.tag }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    {% elif search_term_tag %}
+        <p class="centered">
+            <strong><i>
+                ({{ search_term_tag }})에 대한 태그 검색 결과가 없습니다!
+            </i></strong>
+        </p>
+    {% endif %}
+    <br/><br/>
+</div>
+
+{% endblock %}
+<!--ch09 작성 종료-->

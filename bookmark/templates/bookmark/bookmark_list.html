@@ -1,0 +1,30 @@
+{% extends "base.html" %}  <!--상속. 반드시 첫 줄에 있어야 함-->
+{% block title %}IKEA{% endblock %}
+{% load staticfiles %}  <!--정적 파일을 읽어들임. css 파일 불러오는 아래 명령 실행하기 위해 필요-->
+{#static 파일이 어디있는지 settings.py에서 찾음. 맨 밑 쪽의 static의 dir이 어디있는지 확인#}
+{% block extrastyle %}{% static "css/tabular.css" %}{% endblock %}
+{% block content %} <!--콘텐츠 블록 재정의-->
+    <div id="content"> <!--base.css 내부의 div#contents 스타일 적용으로, 표형식으로만 보이게 함-->
+        <h2 class="centered">IKEA 주요 서비스</h2>  <br/>
+        <table id="tbl" >
+            <tr>
+                <th>번호</th>
+                <th>서비스</th>
+                <th>주소</th>
+            </tr>
+            {% for bookmark in object_list %} <!-- 디폴트 컨텍스트 변수가 objecct_list -->
+                <tr>
+                    <td>{{ bookmark.id }}</td>
+                    <td>{{ bookmark.title }}</td>
+                    <td>
+                        <!-- bookmark 이름공간의 detail이라는 name을 가지는 url로-->
+                        <!-- 연결하면서 bookmark.id를 매개변수로 전달-->
+                        <a href="{% url 'bookmark:detail' bookmark.id %}">
+                            {{ bookmark.url }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

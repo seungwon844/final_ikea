@@ -1,0 +1,168 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+}
+
+/* PAGE STRUCTURE */
+div #header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    display: table;
+    background: white;
+}
+
+#menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border-spacing: 80px 0;
+    background: #3f6abf;
+    font-size: 15px;
+}
+
+div#content {
+    position: absolute;
+    top: 140px;
+    left: 50px;
+    right: 50px;
+}
+
+
+/* HEADER */
+.logo {
+    width: 120px;
+    padding: 10px 0 0 10px;
+}
+
+.welcome {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    float: right;
+    padding-right: 20px;
+    color: #6c6c6c;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.welcome a:link, .welcome a:visited {
+    color: #3f6abf;
+}
+
+/* MENU */
+div#menu a:link, div#menu a:visited {
+    color: #fff;
+}
+
+div#menu > li {
+    display: table-cell;
+    vertical-align: middle;
+    /*border: 2px solid #bbb;*/
+    text-align: center;
+    font-weight: bold;
+
+}
+
+#menu > li:hover {
+    background-color: #5a7fbf;
+    cursor: pointer;
+}
+
+/* 드롭다운메뉴 */
+div#menu li  ul {
+    display:none;
+    position:absolute;
+    margin: 0;
+    padding:10px 10px 5px 10px;
+    list-style:none;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: white;
+    z-index: 1;
+}
+
+div#menu li:hover ul {
+    display:block;
+
+}
+
+/* LINK */
+a:link, a:visited {
+    color: #369;
+    text-decoration: none;
+}
+
+a:hover {
+    /*text-decoration: underline;*/
+    cursor: pointer;
+
+}
+
+/* TABLE */
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    line-height: 18px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+    padding: 5px 15px;
+}
+
+/*새로 추가*/
+
+#footer {
+    position: relative;
+    top: 1100px;
+    background-color: #555;
+    bottom: 0;
+    height: 30px;
+    padding: 20px 20px 100px 20px;
+}
+#rule {float: right;}
+
+.company_info {
+    text-align: left;
+    font-size: 12px;
+    color: #fff;
+}
+body {height: 1000px;}
+
+/*검색창*/
+.search {
+	display: inline-block;
+	width: 250px; height: 34px;
+	border-bottom: 3px solid #3f6abf;
+	background: white;
+}
+.input_text {
+	width: 348px; height: 21px;
+	margin: 6px 0 0 3px;
+	border: 0;
+	line-height: 25px;
+	font-size: 13px;
+	outline: none;
+}
+.sch_smit {
+	width: 40px; height: 40px;
+	margin: 0; border: 0;
+	vertical-align: bottom;
+	background: #3f6abf;
+	color: white;
+	font-weight: bold;
+	border-radius: 100%;
+	cursor: pointer;
+}
+.sch_smit:hover {
+	background: #5a7fbf;
+}
+/*여기까지 검색창*/

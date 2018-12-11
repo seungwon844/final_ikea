@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}IKEA{% endblock %}
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/tabular.css" %}{% endblock %}
+{% block content %}
+    <!--div#content 내부로 전체 콘텐츠 이동-->
+    <div id="content">
+
+        <p class="other_posts centered">
+            {% if object.get_previous_by_modify_date %}
+                <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post">
+                    &laquo;-- {{ object.get_previous_post }}
+                </a>
+            {% endif %}
+
+            {% if object.get_next_by_modify_date %}
+                &nbsp; | &nbsp;
+                <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">
+                    {{ object.get_next_post }} --&raquo;
+                </a>
+            {% endif %}
+        </p>
+
+        <!--표 형식-->
+        <table id="tbl_detail">
+            <tr>
+                <th colspan="2"><strong>{{ object.title }}</strong>  <!--제목--></th>
+            </tr>
+            <tr>
+                <td rowspan="2" class="user">유저명 | <strong>{{ object.slug }}</strong> 님</td>
+                <td>최초 등록 | {{ object.create_date|date:"Y년 m월 d일" }}</td>
+            </tr>
+            <tr>
+                <td>최근 수정 | {{ object.modify_date|date:"Y년 m월 d일" }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="content">{{ object.content|linebreaks }}</td>  <!--linebreaks는 \n 이 있을 경우 줄 바꿈해줌-->
+            </tr>
+
+            <!--ch07 추가-->
+            <!--tagging 패키지에 정의된 커스텀 태그 사용을 위해 tagging_tags 모듈을 적재-->
+            {% load tagging_tags %}　　
+
+            <!--tags_for_object 커스텀 태그를 사용하여 object 객체에 지정된 태그 리스트를 추출하여-->
+            <!--tags 템플릿 변수에 저장, 여기서 object 객체는 PostDV 뷰에서 전달받는 컨텍스트 변수로서,-->
+            <!--특정 Post 객체가 저장되어 있음-->
+            {% tags_for_object object as tags %}　　<!--오브젝트를 위한 태그들을 tags라고 부름-->
+            <tr> <!--게시글마다 지정된 태그를 출력-->
+                <td colspan="2" class="tag_name">
+                    TAG |
+                    {% for tag in tags %}  <!--한 게시글 당 태그가 여러 개일 수도 있으므로 모두 출력하기 위해 반복-->
+                        <a href="{% url 'blog:tagged_object_list' tag.name %}">
+                            {{tag.name}}&nbsp;  <!--태그명 출력되고 링크 걸림. 링크로 넘어가면 tag/태그명 형태로 url이 처리됨-->
+                        </a>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr> <!--게시판에 지정된 태그 클라우드를 출력-->
+                <td colspan="2" class="tag_content">
+                    <!--http://localhost:8000/blog/tag/-->
+                    <!--embed 태그를 활용해서 src에 지정된 템플릿을 해당 영역에 출력-->
+                    <embed type="text/html" src="{% url 'blog:tag_cloud' %}">  <!--새 창에서 열리지 않음!-->
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/>                           <!-- ch08 1/5  -->
+        <div>                           <!-- ch08 2/5  -->
+            {% load disqus_tags %}      <!-- ch08 3/5  -->
+            {% disqus_show_comments %}  <!-- ch08 4/5  -->
+        </div>                          <!-- ch08 5/5  -->
+    </div>
+{% endblock %}}

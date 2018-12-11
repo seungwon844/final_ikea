@@ -1,0 +1,47 @@
+{% extends "base.html" %}  <!--상속-->
+{% block title %}IKEA{% endblock %}
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/tabular.css" %}{% endblock %}
+{% block content %}
+    <!--div#content 내부로 전체 콘텐츠 이동-->
+    <div id="content">
+        <h2 class="centered">IKEA Review</h2> <br/>
+        <table id="tbl">
+            <tr>
+                <th>번호</th>
+                <th>최종 수정일</th>
+                <th>제목</th>
+                <th>유저명</th>
+            </tr>
+            {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.modify_date|date:"Y년 m월 d일" }}</td>
+                <td><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></td>
+                <td>{{ post.slug }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br/>
+        <!--이전/현재/다음 페이지 이동 -->
+        <div class="centered"> <!--div 요소는 블록 요소-->
+            <span>  <!--span 요소는 인라인 요소-->
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">이전 페이지</a>
+                {% else %}
+                    첫 페이지
+                {% endif %}
+
+                &nbsp;&nbsp;[  <!--숫자 사이에 공백과 괄호 추가-->
+                {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                ]&nbsp;&nbsp;
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">다음 페이지</a>
+                {% else %}
+                    끝 페이지
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

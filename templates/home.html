@@ -1,0 +1,109 @@
+{% extends "base.html" %}                   <!--base.html을 상속받는다고 선언-->
+
+{% block title %}IKEA{% endblock %}    <!--title 블록 재정의-->
+
+<!--정적 파일인 css 연결하기 위하여, staticfiles를 로드-->
+{% load staticfiles %}
+<!--extrastyle 블록을 재정의하여 추가적으로 home.css 연결-->
+{% block extrastyle %}{% static "css/home.css" %}
+{% endblock %}
+
+{% block content %}                         <!--content 블록 재정의-->
+
+<div id="content_home" style="top: 130px">     <!--content_home 영역 정의-->
+
+{#    <div id="homeimg" class="banner">      <!--homeimg 영역 정의-->#}
+{#        <ul>#}
+{#            <li><img src="{% static 'img/m_1.jpg' %}" style="height:256px;"/></li>#}
+{#            <li><img src="{% static 'img/m_2.jpg' %}" style="height:256px;"/></li>#}
+{#            <li><img src="{% static 'img/m_3.jpg' %}" style="height:256px;"/></li>#}
+{#            <li><img src="{% static 'img/m_4.png' %}" style="height:256px;"/></li>#}
+{#            <li><img src="{% static 'img/m_5.jpg' %}" style="height:256px;"/></li>#}
+{#        </ul>#}
+{#    </div>#}
+
+
+{#    carousel 효과#}
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 800px">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="{% static 'img/m_1.jpg' %}" style="height:256px;" class="img-responsive center-block">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'img/m_2.jpg' %}" style="height:256px;" class="img-responsive center-block">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'img/m_3.jpg' %}" style="height:256px;" class="img-responsive center-block">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'img/m_4.png' %}" style="height:256px;" class="img-responsive center-block">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'img/m_5.jpg' %}" style="height:256px;" class="img-responsive center-block">
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+    <hr style="margin: 5px 0;">     <!--그림 및으로 5px 간격을 두고 수평선 넣기-->
+    <div id="board"> <!--게시판 쓸 부분-->
+        <h1>이달의 Pick</h1>
+
+        <table id="applist">
+            <tr>
+            <td><b><a href="{% url 'bookmark:index' %}">GO SERVICE</a></b></td> <!--고객들이 추천한 제품만! -->
+            <td class="board_cnt">이달의 주요 SERVICE는 IKEA 모바일 앱 입니다. </td>
+            <td id="Edit"><a href="https://www.ikea.com/ms/ko_KR/customer-service/about-shopping/free-ikea-apps/index.html?icid=iba|kr|mobileapp_ie|201801110839254648_3" target="_blank"><img src="{% static 'img/next.png' %}"/></a></td>
+            </tr>
+
+            <tr>
+            <td><b><a href="{% url 'blog:index' %}">IKEA REVIEW</a></b></td>
+            <td class="board_cnt">이달의 리뷰는 [DUKTIG 둑티그]를 작성해주신 verytired님 입니다.</td>
+            <td id="Edit"><a href="{% url 'blog:post_detail' 'verytired'%}"><img src="{% static 'img/next.png' %}"/></a></td>
+            </tr>
+
+            <tr>
+            <td><b><a href="{% url 'photo:index' %}">IKEA BEST</a></b></td>
+            <td class="board_cnt">이달의 추천 제품은 [TARVA 타르바] 원목 침대 입니다.</td>
+            <td id="Edit"><a href="{% url 'photo:photo_detail' 21 %}"><img src="{% static 'img/next.png' %}"/></a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="custom_funi">
+        <h1>이케아 제품 이야기</h1>
+
+        <table id="funi">
+            <tr>
+                <td><a href="{% url 'photo:album_detail' 8 %}"><img src="{% static 'img/main_1.png' %}"/></a></td>
+                <td><a href="{% url 'photo:album_detail' 9 %}"><img src="{% static 'img/main_2.png' %}"/></a></td>
+                <td><a href="{% url 'photo:album_detail' 5 %}"><img src="{% static 'img/main_3.jpg' %}"/></a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock content %}
+
+

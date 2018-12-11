@@ -1,0 +1,85 @@
+<!DOCTYPE html>     <!--HTML5 규약을 준수하는 파일-->
+<html lang="ko">    <!--언어는 한국어로 지정--><!---->
+
+<head>              <!--페이지 타이틀과 css 파일 2개를 연결-->
+<title>{% block title %}IKEA{% endblock %}</title>
+
+{% load staticfiles %}  <!--정적 파일인 css 연결하기 위하여, staticfiles를 로드-->
+<!--스타일시트 css/base.css 작성이 필요함-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "css/base.css" %}{% endblock %}" />
+<link rel="stylesheet" type="text/css" href="{% block extrastyle %}{% endblock %}" />   <!--추가적인 css파일 불러오고 싶으면 사용. 현재는 비어있음-->
+<link rel="shortcut icon" href="{% static 'img/favi.ico' %}">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+
+</head>
+
+<body>              <!--바디 영역은 4 영역(헤더/메뉴/콘텐츠/풋터)으로 구성-->
+
+<div id="header">                   <!--헤더 영역-->
+    <a href="{%  url 'home' %}"><img src="{% static 'img/ikea.png' %}" class="logo"/></a>
+    <!--검색창-->
+        <span class='search' style="vertical-align: bottom;">
+            <input type='text' class='input_text' />
+        </span>
+        <a href="{% url 'blog:search' %}"><button type='submit' class='sch_smit'><img src="{% static 'img/search.png' %}" style="width:16px"/></button></a>
+
+
+
+{#유저정보 부분#}
+    {% if user.is_active %}
+    <h4 class="welcome">안녕하세요.
+        <strong>{% firstof user.get_short_name user.get_username %}</strong> 님 /
+                <a href="{% url 'password_change' %}">비밀번호 변경</a> /
+                <a href="{% url 'logout' %}">로그아웃</a>
+    </h4>
+    {% else %}
+    <h4 class="welcome">안녕하세요. <a href="#">익명의 사용자</a>님  /
+                <a href="{% url 'login' %}">로그인</a> /
+                <a href="{% url 'register' %}">회원가입</a>
+    </h4>
+    {% endif %}
+</div>
+
+
+
+
+<div id="menu">                     <!--메뉴 영역-->
+    <li><a href="{% url 'home' %}">HOME</a></li>
+    <li><a href="{% url 'bookmark:index' %}">SERVICE</a></li>
+    <li><a href="{% url 'blog:index' %}">REVIEW</a></li>
+    <li><a href="{% url 'photo:index' %}">IKEA BEST</a></li>
+    <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
+</div>
+
+{% block content %}
+{% endblock %}   <!--블록 태그로 콘텐츠 영역 정의 -->
+
+<!--블록 태그로 풋터 영역 정의-->
+{% block footer %}
+
+    <div id="footer">
+        <div  class="company_info">
+            <b>IKEA 코리아</b>
+            <span id="rule">
+                <a href="http://www.ikea.com/ms/ko_KR/privacy_policy/privacy_policy.html" style="color: #8187ff">웹사이트이용약관</a> <span>|</span>
+                <a href="http://www.ikea.com/ms/ko_KR/privacy_policy/20164_privacy_policy_ko.html">
+                    <span style="color: #ffff4f"><b>IKEA Korea 개인정보처리방침</b></span>
+                </a>
+            </span>
+
+            <br/> <br/>
+            <span>주소 : (우) 14352 경기도 광명시 일직로 17 IKEA 광명점 <br/> </span>
+            <span> 사업자 등록번호 : 106-86-82871 </span> <span style="padding-left: 10%">대표자 : 안드레 슈미트갈</span> <br/>
+            <span> 통신판매업 신고 : 2018-경기광명-0209 </span> <span style="padding-left: 7.7%">TEL : 1670-4532</span> <br/>
+            <span> © Inter IKEA Systems B.V. 1999 - 2018 </span>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

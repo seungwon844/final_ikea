@@ -1,0 +1,79 @@
+#tbl {
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+        }
+
+#tbl td, #tbl th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tbl tr:nth-child(even){background-color: #fbfbfb;}
+
+#tbl tr:hover {background-color: #ddd;}
+
+#tbl th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #fbfb73;
+    color: #4c4c4c;
+}
+.centered {  /*이전 페이지 버튼이 중앙으로 오도록 설정*/
+    text-align: center;
+}
+.leftpadding30percent { padding-left: 35%; }  /*저장소 부분의 ul 부분이 가운데로 오도록 조정. 내가 35로 바꿈*/
+
+
+
+#tbl_detail {
+    width: 60%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+#tbl_detail td, #tbl_detail th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+#tbl_detail tr:hover {background-color: #f7f7f7;}
+
+#tbl_detail th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #fbfb73;
+    color: #4c4c4c;
+    font-size: 20px;
+}
+.user {
+    vertical-align: middle;
+    text-align: center;
+    width: 380px;
+}
+.user strong {
+    font-size: 15px;
+}
+td.content{
+    vertical-align: middle;
+    text-align: center;
+}
+
+.tag_content {
+    height: 40px;
+}
+
+
+
+/* 검색 */
+.form_table {
+    margin: auto;
+}
+#submit_btn {
+    width: 80px;
+    background-color: #fbfb73;
+    border-radius: 10px;
+}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}IKEA{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "photo/photo.css" %}{% endblock %}
+{% block content %}
+<div id="content" class="centered_photo">
+    <h2>{{ object.title }}</h2>
+    <p class="other_posts">
+        {% if object.get_newer_photo %}
+            <a href="{{ object.get_newer_photo.get_absolute_url }}" title="다음 사진">
+                {{ object.get_newer_photo }} «--
+            </a>
+        {% else %}
+            끝 사진
+        {% endif %}
+         &nbsp;&nbsp; | &nbsp;&nbsp;
+        {% if object.get_older_photo %}
+            <a href="{{ object.get_older_photo.get_absolute_url }}" title="이전 사진">
+                --» {{ object.get_older_photo }}
+            </a>
+        {% else %}
+            첫 사진
+        {% endif %}
+    </p>
+
+    <a href="{{ object.image.url }}">
+        <img style="max-width:70%; max-height: 300px;" src="{{ object.image.url }}" />
+    </a>
+    <br/><br/>
+    <table id="tbl">
+        <tr>
+            <td style="vertical-align: middle">설명</td>
+            <td>{% if object.description %}
+            <p>{{ object.description|linebreaks }}</p>
+        {% else %}
+            <p>(blank)</p>
+        {% endif %} <!--제목--></td>
+        </tr>
+        <tr>
+            <td>등록 일시</td>
+            <td>{{ object.upload_date }}</td>
+        </tr>
+        <tr>
+            <td>앨범</td>
+            <td><a href="{% url 'photo:album_detail' object.album.id %}">{{ object.album.name }}</a></td>
+        </tr>
+    </table>
+
+{#    <ul style="list-style-type: none">#}
+{#        <strong><li>[설명]</li></strong>#}
+{#        {% if object.description %}#}
+{#            <p>{{ object.description|linebreaks }}</p>#}
+{#        {% else %}#}
+{#            <p>(blank)</p>#}
+{#        {% endif %}#}
+{##}
+{#        <strong><li>[등록 일시]</li></strong>#}
+{#        <p>{{ object.upload_date }}</p>#}
+{#        <!--https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs-->#}
+{##}
+{#        <strong><li>[앨범]</li></strong>#}
+{#        <p><a href="{% url 'photo:album_detail' object.album.id %}">{{ object.album.name }}</a></p>#}
+{#    </ul>#}
+
+{#        <table class="photo-detail">#}
+{#            <tr>#}
+{#                <td>#}
+{#                    <a href="{{ object.image.url }}">#}
+{#                        <img style="max-width:70%; max-height: 70%;" src="{{ object.image.url }}" />#}
+{#                    </a>#}
+{#                </td>#}
+{#                <td>#}
+{#                    <ul>#}
+{#                        <li>설명</li>#}
+{#                        {% if object.description %}#}
+{#                            <p>{{ object.description|linebreaks }}</p>#}
+{#                        {% else %}#}
+{#                            <p>(blank)</p>#}
+{#                        {% endif %}#}
+{#                        <li>등록 일시</li>#}
+{#                        <p>{{ object.upload_date }}</p>#}
+{#                        <!--https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs-->#}
+{#                        <li>앨범</li>#}
+{#                        <p><a href="{% url 'photo:album_detail' object.album.id %}">{{ object.album.name }}</a></p>#}
+{#                    </ul>#}
+{#                </td>#}
+{#            </tr>#}
+{#        </table>#}
+
+</div>
+{% endblock %}
