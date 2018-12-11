@@ -1,4 +1,7 @@
 /* album_list.html */
+
+div #footer {top: 1500px;}
+
 div.album-list {
     margin: 20px 50px;
 }
